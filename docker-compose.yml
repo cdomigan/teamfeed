@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8002:443"
+    volumes:
+      - ./public:/public
+      - ./cert.pem:/etc/ssl/cert.pem
+      - ./cert.key:/etc/ssl/cert.key
+      - ./site.conf:/etc/nginx/conf.d/site.conf
+    links:
+      - php
+  php:
+    image: php:7.1-fpm
+    volumes:
+      - ./public:/public
